@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  images: { unoptimized: true },
+  // Vercel handles Next.js natively — no need for static export
   // Allow importing .js engine files without extension resolution issues
   webpack: (config) => {
     config.resolve.extensionAlias = {
