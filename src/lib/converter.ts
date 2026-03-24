@@ -6,14 +6,18 @@ import { mapRecords } from '../engine/mapper/record-mapper.js';
 import { validateRecords, getActiveServices } from '../engine/mapper/validator.js';
 import { buildOutputWorkbook } from '../engine/writer/output-writer.js';
 import type { ConvertResult } from './types';
+import { TEMPLATE_BASE64 } from './template-data';
 
 /**
- * Load default template from public/ via fetch.
+ * Load default template (embedded as base64 — no fetch needed).
  */
-export async function loadDefaultTemplate(): Promise<ArrayBuffer> {
-  const res = await fetch('/edupay_template.xlsx');
-  if (!res.ok) throw new Error('Không tải được template mặc định');
-  return res.arrayBuffer();
+export function loadDefaultTemplate(): ArrayBuffer {
+  const binary = atob(TEMPLATE_BASE64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes.buffer as ArrayBuffer;
 }
 
 /**

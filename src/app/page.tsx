@@ -40,7 +40,7 @@ export default function Home() {
       if (useCustomTemplate && templateFile) {
         templateBuffer = await readFileAsBuffer(templateFile);
       } else {
-        templateBuffer = await loadDefaultTemplate();
+        templateBuffer = loadDefaultTemplate();
       }
 
       // Run conversion (synchronous, CPU-intensive)
